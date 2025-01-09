@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property='og:title' content='Pavitra Classes | MultiplyMaster' />
+    <meta property='og:image' content='https://yashkumat.github.io/multiplymaster/logo.png' />
+    <meta property='og:description' content=' Pavitra Classes, Ghoti. 5th to 10th - CBSE, SSC, ICSE - Maths and
+        Science Coaching Center. 9527526222' />
+    <meta property='og:url' content='https://yashkumat.github.io/multiplymaster/' />
+    <meta property="og:type" content='website' />
+    <meta name="description"
+        content="A simple and interactive app to practice multiplication. Designed to make learning fun and effective!">
+    <meta name="author" content="Yash Kumat">
+    <link rel="icon" href="https://yashkumat.github.io/multiplymaster/logo.png">
+    <meta name="keywords"
+        content="Pavitra Classes, Tution, Coaching, 10th CBSE Classes, CBSE classes, SSC classes, Maths class, Science class, BuiltWithLove, SmallBusinessSupport, InvoicingMadeSimple, TechForGood">
+    <title>MultiplyMaster</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+            color: #2c3e50;
+        }
+
+        .container {
+            margin: 20px;
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .result {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        #checkAnswer {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: .75rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+
+        }
+
+        #generateQuestion {
+            background-color: #f0f8ff;
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+            padding: 5px 10px;
+            font-size: .75rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #displayTable {
+            background-color: #f0f8ff;
+            color: #4CAF50;
+            border: none;
+            padding: 5px 20px;
+            font-size: .75rem;
+            border-radius: 5px;
+            cursor: pointer;
+            align-self: start;
+        }
+
+        .table {
+            margin: 20px;
+            text-align: left;
+            font-size: 0.75rem;
+        }
+
+        .table table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #f0f8ff;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        .table td {
+            background-color: #f0f8ff;
+        }
+
+        button:hover {
+            background-color: #f0f8ff;
+            color: #4CAF50;
+        }
+
+        #answer {
+            color: black;
+            padding: 10px 20px;
+        }
+
+        #score {
+            text-align: right;
+            color: #e74c3c;
+            margin-right: 20px;
+            font-size: .75rem;
+        }
+
+        #logo {
+            position: relative;
+            top: -40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="score">Score: 0</div>
+    <div class="container">
+        <img id="logo" src="/logo.png" alt="">
+        <div class="question" id="question">MultiplyMaster</div>
+        <input type="text" id="answer" placeholder="Enter your answer">
+        <button id="checkAnswer" onclick="checkAnswer()">Check Answer</button>
+        <button id="generateQuestion" onclick="generateQuestion()">Generate Question</button>
+        <div class="result" id="result"></div>
+
+    </div>
+
+    <button id="displayTable" onclick="displayTable()">Show Table</button>
+    <div class="table" id="table"></div>
+
+    <script>
+        let num1, num2;
+
+        let score = 0;
+        let attempts = 0;
+
+        let start = 0;
+        document.getElementById('checkAnswer').style.display = 'none'
+        document.getElementById('answer').style.display = 'none'
+        document.getElementById('displayTable').style.display = 'none'
+
+        function generateQuestion() {
+            start = 1;
+
+            if (start) {
+                document.getElementById('checkAnswer').style.display = "inline"
+                document.getElementById('answer').style.display = 'inline'
+                document.getElementById('displayTable').style.display = 'inline'
+                document.getElementById('generateQuestion').innerText = "Next Question"
+            }
+            num1 = Math.floor(Math.random() * 20) + 1;
+            num2 = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('question').textContent = `What is ${num1} x ${num2}?`;
+            document.getElementById('result').textContent = "";
+            document.getElementById('answer').value = "";
+            document.getElementById('table').textContent = "";
+            document.getElementById('answer').focus();
+        }
+
+        function checkAnswer() {
+            attempts++;
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const correctAnswer = num1 * num2;
+            document.getElementById('table').textContent = "";
+            document.getElementById('displayTable').innerText = 'Show Table'
+            if (userAnswer === correctAnswer) {
+                document.getElementById('result').textContent = "Correct! Well done.";
+                document.getElementById('result').style.color = "#27ae60";
+                score++;
+                document.getElementById('score').textContent = `Score: ${score} / ${attempts}`;
+                document.getElementById('score').style.color = '#27ae60';
+                setTimeout(() => {
+                    document.getElementById('generateQuestion').click();
+
+                }, 1000)
+            } else {
+                document.getElementById('result').textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
+                document.getElementById('result').style.color = "#e74c3c";
+                document.getElementById('score').textContent = `Score: ${score} / ${attempts}`;
+            }
+        }
+
+        function displayTable() {
+            const tableDiv = document.getElementById('table');
+
+            if (num1) {
+                if (tableDiv.style.display === 'none' || tableDiv.innerHTML === '') {
+                    let tableHTML = `<table><tr><th>Multiplication</th><th>Result</th></tr>`;
+                    for (let i = 1; i <= 10; i++) {
+                        tableHTML += `<tr><td>${num1} x ${i}</td><td>${num1 * i}</td></tr>`;
+                    }
+                    tableHTML += `</table>`;
+                    tableDiv.innerHTML = tableHTML;
+                    tableDiv.style.display = 'block';
+                    document.getElementById('displayTable').innerText = 'Hide Table'
+
+                } else {
+                    tableDiv.style.display = 'none';
+                    document.getElementById('displayTable').innerText = 'Show Table'
+
+                }
+            } else {
+                tableDiv.textContent = "Generate a question first to see the table.";
+                tableDiv.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>
