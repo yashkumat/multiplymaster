@@ -158,6 +158,7 @@
     <button id="displayTable" onclick="displayTable()">Show Table</button>
     <div class="table" id="table"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script>
         let num1, num2;
 
@@ -203,6 +204,7 @@
                     document.getElementById('generateQuestion').click();
 
                 }, 1000)
+                confetti();
             } else {
                 document.getElementById('result').textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
                 document.getElementById('result').style.color = "#e74c3c";
